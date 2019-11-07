@@ -1,0 +1,32 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.container{
+  position: relative;
+  /*Coordinates for absolute elements (.rectangle) are always relative to the closest container that is a positioned element (.container).
+  So basically we want our container to have a position property so that our rectangle can go on top of it! */
+  border: 1px solid red;
+  color: white;
+}
+
+.rectangle{
+  position: absolute;
+  /*The "top" and "left" properties let you define how far it’s offset from its static position. 
+  This is sort of like setting an (x, y) coordinate for the element. 
+  The element starts at (0,0) in the top left hand corner of the image to start. Then we have to move it! */
+  
+  /*Using the values that the API returned: */
+  /*LeftX":42,"RightX":216,"TopY":66,"BottomY":238 */
+  
+  height: 172px; /*BottomY - TopY*/
+  width: 174px; /*RightX - LeftX*/
+  top: 66px; /*TopY*/
+  left: 42px; /*LeftX*/
+  border: 5px dotted red;
+}

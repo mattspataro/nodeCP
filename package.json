@@ -1,22 +1,19 @@
 {
   "name": "nodecp",
-  "version": "1.0.0",
-  "description": "creative project",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mattspataro/nodeCP.git"
-  },
-  "author": "mattspataro",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mattspataro/nodeCP/issues"
-  },
-  "homepage": "https://github.com/mattspataro/nodeCP#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "cloudmersive-image-api-client": "^1.2.3",
+    "cloudmersive-speech-api-client": "^1.1.4",
+    "cloudmersive-validate-api-client": "^1.1.9",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1"
   }
 }
