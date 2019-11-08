@@ -8,7 +8,6 @@ router.get('/', function(req, res, next) {
 });
 
 //API STUFF
-
 var CloudmersiveImageApiClient = require('cloudmersive-image-api-client');
 var defaultClient = CloudmersiveImageApiClient.ApiClient.instance;
 
@@ -20,32 +19,20 @@ var apiInstance = new CloudmersiveImageApiClient.FaceApi();
 
 router.post('/faces', function(req, res, next) {
     console.log('Begin API call...');
-    //var imageFile = Buffer.from(fs.readFileSync(req.body.photoObj).buffer); // File | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
-      apiInstance.faceDetectGender(req.body.photoObj, function(error, data, response) {
-    // apiInstance.faceDetectGender(imageFile, function(error, data, response) {
+    var path = req.body.path;
+    console.log("Path: " + path);
+    var imageFile = Buffer.from(fs.readFileSync(path).buffer);
+    console.log(imageFile);
+    apiInstance.faceDetectGender(imageFile, function(error, data, response) {
         if (error) {
             console.error(error);
         }
         else {
             console.log('API called successfully!');
-            res.send(data);
+            console.log("People Identified: " + data.PeopleIdentified);
+            res.status(200).json(data);
         }
     });
 });
-
-
-// router.get('/faces', function(req, res, next) {
-//     console.log('Begin API call...');
-//     var imageFile = Buffer.from(fs.readFileSync("./public/recordings/many.jpg").buffer); // File | Image file to perform the operation on.  Common file formats such as PNG, JPEG are supported.
-//     apiInstance.faceDetectGender(imageFile, function(error, data, response) {
-//         if (error) {
-//             console.error(error);
-//         }
-//         else {
-//             console.log('API called successfully!');
-//             res.send(data);
-//         }
-//     });
-// });
 
 module.exports = router;

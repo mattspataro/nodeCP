@@ -4,25 +4,30 @@ var app = new Vue({
   data: {
     pictures: [
       "./pictures/beardBeachMan.jpg",
-      "./pictures/manSitting.jpg",
-      "./pictures/mathWoman.jpg",
+      "./pictures/redhead.jpg",
+      "./pictures/redSweater.jpg",
       "./pictures/womanByWall.jpg"
     ],
     faces: [],
     current: 0,
     slideIndex: 1,
+    loading: false,
   },
-
+  mounted: function() {
+    this.$nextTick(function() {
+      this.plusIndex(0);
+    });
+  },
   methods: {
-    myFunction() {
-      alert("Finding face and predicting gender, please wait");
-    },
     async upload() {
+      alert("PLEASE WAIT AT LEAST 10 SECONDS!!!");
       console.log("in upload");
       this.myHeight += 5;
       var url = "/faces";
       var localPath = this.pictures[this.current];
       var picturePath = './public' + localPath.substring(1, localPath.length);
+      console.log("picturePath: " + picturePath);
+      this.loading = true;
       axios.post(url, {
           path: picturePath,
         })
@@ -51,6 +56,7 @@ var app = new Vue({
             });
           }
           console.log(this.faces);
+          this.loading = false;
         })
         .catch(e => {
           console.log(e);
@@ -67,41 +73,26 @@ var app = new Vue({
     },
 
     plusIndex(n) {
-      console.log(this.current);
-      console.log(this.pictures[this.current])
-      this.slideIndex += n;
-      var i;
+      this.faces = [];
+      console.log("Passes in: " + n);
+      console.log("Current: " + this.current);
+
+      this.slideIndex += n; //update index
       var x = document.getElementsByClassName("mySlides");
-      if (n > x.length) {
+
+      if (this.slideIndex > x.length) {
         this.slideIndex = 1;
-        this.current = 0;
       }
-      if (n < 1) {
+      if (this.slideIndex < 1) {
         this.slideIndex = x.length;
-        this.current = x.length - 1;
       }
+      this.current = this.slideIndex - 1;
+      console.log("Now: " + this.pictures[this.current]);
+      var i;
       for (i = 0; i < x.length; i++) {
         x[i].style.display = "none";
       }
       x[this.slideIndex - 1].style.display = "block";
     },
-
-    
   },
-
-  computed: {
-    updateStyles() {
-      return {
-        //add dynamic properties here
-        height: `${this.myHeight}px`,
-        width: `${this.myWidth}px`,
-        top: `${this.myTop}px`,
-        left: `${this.myLeft}px`,
-      };
-    },
-
-    currentImage() {
-      return this.pictures[this.current];
-    }
-  }
 });
