@@ -8,22 +8,64 @@
 </head>
 
 <body>
-    <div id="app">
-    <form action="fileupload" method="post" enctype="multipart/form-data">
-        <input type="file" name="filetoupload" @change="attachfile"><br>
-    </form>
-    <div class="container">
-        <!--<img  src="./recordings/test.jpg" /-->
-        <img v-if="imgSrc != ''"  :src="imgSrc"/>
-        <div v-else>Select a photo</div>
-        <div class="rectangle"></div>
-    </div>
+    
+    <h2 class="w3-center">Face Recognition</h2>
+    <p align="center">Select a photo and click 'Find Faces' button below</p>
 
+<div id="app">
+<div class="w3-content w3-display-container">
+  <img class="mySlides" src="./pictures/beardBeachMan.jpg" style="width:100%">
+  <img class="mySlides" src= "./pictures/manSitting.jpg" style="width:100%">
+  <img class="mySlides" src="./pictures/mathWoman.jpg" style="width:100%">
+  <img class="mySlides" src= "./pictures/womanByWall.jpg" style="width:100%">
+  
+  <div v-for="item in faces">
+                <div class="rectangle" :style="getStyle(item)"> {{item.gender}}</div>
+            </div>
+  
+  <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)" @onclick="plusIndex(-1)">&#10094;</button>
+  <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)" @onclick="plusIndex(-1)">&#10095;</button>
+</div>
+<br>
+<div id="wrapper">
+      <input type="button" style="height: 50px; background-color:#003366; color:white; border: 2px solid #003366; border-radius: 8px;" value="Find Faces" @click="myFunction();upload()" >
+  </div>
 </div>
 
+ </div>   
+    
+    
+    <!--<div id="app">-->
+    <!--    <div class="container">-->
+    <!--        <img :src="currentImage" />-->
+    <!--        <div v-for="item in faces">-->
+    <!--            <div class="rectangle" :style="getStyle(item)"> {{item.gender}}</div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--    <input type="button" value="Find Faces" @click="upload">-->
+    <!--</div>-->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js" integrity="sha256-lrZTgsdM1iVdRigETFOU8u8/BmLX1ysQ8bzrULbuVFU=" crossorigin="anonymous"></script>
     <script src="javascripts/script.js"></script>
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+    
+        function plusDivs(n) {
+            showDivs(slideIndex += n);
+        }
+    
+        function showDivs(n) {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            x[slideIndex - 1].style.display = "block";
+        }
+    </script>
 </body>
 
 </html>
